@@ -1,12 +1,12 @@
-// Assignment code here
-var Questions = [
+// Questions and Answers Variable
+const Questions = [
     'Javascript is an _______ language?',
     'Which of the following methods can be used to display data in some form using Javascript?',
     'When an operators value is NULL, the type of returned by the unary operator is:',
     'What does the Javascript “debugger” statement do?',
     'Which function is used to serialize an object into a JSON string in Javascript?',
 ];
-var Answers = [
+const Answers = [
     'Object-Oriented',
     'Object-Based',
     'Procedural',
@@ -29,28 +29,46 @@ var Answers = [
     'None of the above',
 
 ];
-var rightAnswers = [
+const rightAnswers = [
     'Object-Oriented',
     'All of the above',
     'Boolean',
     'It acts as a breakpoint in a program',
     'stringify()',
 ]
-var generateBtn = document.querySelector("#start");
-// Wrap most of the Javascript in run quiz function
+var startBtn = document.querySelector("#start");
 function runQuiz() {
-   //Start by asking first question 
-   var i = 0;
-
+    //for(var i = 0;i<5;){
+        var i = 1;
        var number = i+1;
        var header = document.getElementById('questionHead');
        var ListH = document.getElementById('questiontop');
-       var li = document.createElement("li");
        header.textContent=('Question #'+ number);
        ListH.textContent=Questions[i];
-       li.innerHTML = Answers[i];
-       document.getElementById("questiontop").appendChild(li);
+ //for loop to add individual question answers
+       for(n=0;n<4;n++){
+           var li = document.createElement("li");
+           var button = document.createElement("button")
+           button.innerHTML= Answers[n+i*4];
+           button.id="ans";
+           li.appendChild(button);
+           li.className="ansbtn"
+           document.getElementById("questiontop").appendChild(li);
+       }
+//Event listener for whether the right button has been selected
+       console.log(document.querySelectorAll('button'))
+       document.querySelector('#ans').addEventListener('click', event=>{
+           let target=event.target;
+           let finalans= target.textContent
+           if (finalans===rightAnswers[i]){
+            window.alert("Congrats you got the question right!");
+        }
+            else{ 
+                window.alert("You have selected the worng answer!");
 
-}
+            }
+
+        });
+    };
 // Add event listener to generate button
-generateBtn.addEventListener("click", runQuiz);
+startBtn.addEventListener("click", runQuiz);

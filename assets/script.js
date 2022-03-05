@@ -37,8 +37,25 @@ const rightAnswers = [
 ];
 var startBtn = document.querySelector("#start");
 function runQuiz() {
+    //Disable Button and change the wording
   startBtn.innerHTML = "How high of a score can you get??!!!";
   startBtn.disabled = true;
+//Setinterval for game score/clock
+  var tt=60;
+  //timer function
+  function timer(){
+    tt--
+    console.log(tt);
+    document.querySelector('p').innerHTML = tt + " Seconds Remaining"
+  }
+  //interval set
+  var time = setInterval(()=>{
+      timer()
+  }, 1000);
+  //Stop function
+function stoptime(){
+    clearInterval(time);
+}
   //function that resets the questions and answers
   var i = 0;
   function reset() {
@@ -57,28 +74,33 @@ function runQuiz() {
       li.className = "ansbtn";
       document.getElementById("questiontop").appendChild(li);
     }
-    test()
+    test();
+    if(i===rightAnswers.length || tt===0){
+        window.alert("Game Over")
+        stoptime()
+    }
   }
-  reset();
-  //Event listener for whether the right button has been selected
   function test() {
     var ansbtns = document.querySelectorAll("#ans");
-      for (let a = 0; a < ansbtns.length; a++) {
-        ansbtns[a].addEventListener("click", function () {
-          let finalans = this.textContent;
-          if (finalans === rightAnswers[i]) {
-            window.alert("Congrats you got the question right!");
-            console.log(i);
-            reset(i++);
-          } else {
-            window.alert("You have selected the wrong answer!");
-            console.log(i);
-            reset(i++);
-          }
-        });
-      }
+    for (let a = 0; a < ansbtns.length; a++) {
+      ansbtns[a].addEventListener("click", function () {
+        let finalans = this.textContent;
+        if (finalans === rightAnswers[i]) {
+          window.alert("Congrats you got the question right!");
+          console.log(i);
+          reset(i++);
+        } else {
+          window.alert("You have selected the wrong answer!");
+          console.log(i);
+          reset(i++);
+          tt=tt-5
+        }
+      });
     }
-    }
+  }
+    reset();
+}      
+  //Event listener for whether the right button has been selected
 
 // Add event listener to generate button
 startBtn.addEventListener("click", runQuiz);

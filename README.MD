@@ -18,6 +18,6 @@ THEN I can save my initials and score
 
 ## Screenshots and Links
 Link: [Take the timed quiz now](https://colinc27.github.io/TimedQuizChallenge4/)
-![finalwebpage](./assets/screenshot.JPG"final webpage")
+![finalwebpage](./assets/screenshot.JPG "final webpage")
 
 ## Made by Colin Christoph

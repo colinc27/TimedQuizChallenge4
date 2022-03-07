@@ -35,18 +35,29 @@ const rightAnswers = [
   "It acts as a breakpoint in a program",
   "stringify()",
 ];
+var numHighS = 5;
+var High_Scores='highscores'
+var highScorestring=localStorage.getItem(High_Scores);
+var highscores=JSON.parse(highScorestring) ?? [];
 var startBtn = document.querySelector("#start");
 function runQuiz() {
     //Disable Button and change the wording
   startBtn.innerHTML = "How high of a score can you get??!!!";
   startBtn.disabled = true;
 //Setinterval for game score/clock
-  var tt=60;
+  var tt=10;
   //timer function
   function timer(){
+      if(tt>0){
     tt--
     console.log(tt);
     document.querySelector('p').innerHTML = tt + " Seconds Remaining"
+      }
+      else{
+        window.alert("Game Over you ran out of time")
+        stoptime();
+        gameOver();
+      }
   }
   //interval set
   var time = setInterval(()=>{
@@ -75,9 +86,10 @@ function stoptime(){
       document.getElementById("questiontop").appendChild(li);
     }
     test();
-    if(i===rightAnswers.length || tt===0){
+    if(i===rightAnswers.length){
         window.alert("Game Over")
-        stoptime()
+        stoptime();
+        gameOver();
     }
   }
   function test() {
@@ -98,9 +110,22 @@ function stoptime(){
       });
     }
   }
+  //function for the game over
+  function gameOver(){
+    let header = document.getElementById("questionHead");
+      header.textContent="The Game is now over!";
+      document.querySelector('p').innerHTML ="You score for this run was " + tt + " points";
+      var initials= window.prompt("Please enter initials")
+      var newScore = {tt,initials};
+      highscores.push(newScore)
+      highscores.sort((a,b)=>b.score-a.score);
+      highscores.splice(numHighS)
+      localStorage.setItem(High_Scores,JSON.stringify(highscores))
+      //highScore.push(tt +" Points by "+ initials)
+      console.log(highscores);
+  }
     reset();
 }      
-  //Event listener for whether the right button has been selected
 
 // Add event listener to generate button
 startBtn.addEventListener("click", runQuiz);

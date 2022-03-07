@@ -45,7 +45,7 @@ function runQuiz() {
   startBtn.innerHTML = "How high of a score can you get??!!!";
   startBtn.disabled = true;
 //Setinterval for game score/clock
-  var tt=10;
+  var tt=60;
   //timer function
   function timer(){
       if(tt>0){
